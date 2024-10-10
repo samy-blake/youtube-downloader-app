@@ -32,7 +32,6 @@ export interface PreviewDownloadData {
     InputTextModule,
     ButtonModule,
     ReactiveFormsModule,
-
   ],
   templateUrl: './dowloader.component.html',
   styleUrl: './dowloader.component.scss'
@@ -49,8 +48,14 @@ export class DowloaderComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-
+    this.previewForm.controls['url'].valueChanges.subscribe(async () => {
+      if (this.previewForm.invalid) return;
+      const response = await (window as any).electron?.downloadPreview(this.previewForm.value.url)
+      console.log(response)
+    })
   }
+
+
 
   submitPreview(): void {
     if (!this.previewForm.invalid) return;
