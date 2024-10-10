@@ -1,0 +1,34 @@
+<p-card header="Downloader">
+  <div class="download-interface">
+    <div class="download-interface-preview">
+      <div class="download-interface-preview-image">
+        <img [src]="previewDownloadData?.image" alt="">
+      </div>
+      <div class="download-interface-preview-text">
+        <h2 class="download-interface-preview-text-title">
+          {{previewDownloadData?.title}}
+        </h2>
+        <div class="download-interface-preview-text-description">
+          {{previewDownloadData?.description}}
+        </div>
+      </div>
+    </div>
+    <form (ngSubmit)="submitPreview()" class="download-interface-form" [formGroup]="previewForm">
+      <input type="url" name="" pInputText formControlName="url">
+      <p-button [icon]="'pi ' + (previewLoading ? 'pi-spin pi-spinner' : 'pi-arrow-down')" [disabled]="previewLoading"
+        (onClick)="submitPreview()">
+      </p-button>
+    </form>
+  </div>
+</p-card>
+
+<div class="downloads">
+  <ul class="downloads-list">
+    <li class="downloads-list-item" *ngFor="let downloads of downloads">
+      <div class="download-item">
+        {{downloads.channel}} : {{downloads.title}}
+        <p-progressBar [value]="downloads.process" />
+      </div>
+    </li>
+  </ul>
+</div>
